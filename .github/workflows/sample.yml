@@ -1,12 +1,10 @@
-name: Change shell
-on: push
+name: Auto cancel
+on: pull_request
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
 jobs:
-  print:
+  sleep:
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
-        run: echo "${SHELL}"
-      - shell: python
-        run: |
-          import os
-          print(os.environ['PATH'])
+      - run: sleep 120
